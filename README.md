@@ -2,7 +2,7 @@
 Leave application that allows an employee to apply for a leave
 
 # How to Install Dependencies
-mkvirtual leave_env <br/>
+mkvirtualenv leave_env <br/>
 pip3 install -r requirements.txt
 
 # How to Run Application
