@@ -18,6 +18,7 @@ class Employee(models.Model):
 
 		return self.emp_number
 
+
 def daysOfLeave(is_valid_period):
 	if is_valid_period <= 0:
 		

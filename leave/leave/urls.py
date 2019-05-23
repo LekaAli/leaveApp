@@ -19,13 +19,15 @@ from leave_manager import viewsets
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt import views as auth_views
 
-router = DefaultRouter()
-router.register(r'new_employee', viewsets.EmployeeViewset)
-router.register(r'leave_application', viewsets.LeaveViewset)
+# router = DefaultRouter()
+# router.register(r'new_employee', viewsets.EmployeeViewset.as_view())
+# router.register(r'leave_application', viewsets.LeaveViewset.as_view())
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/', include(router.urls)),
-    url(r'^api/token/', auth_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    url(r'^api/refresh/', auth_views.TokenRefreshView.as_view(), name='token_refresh_view')
+    # url(r'^api/', include(router.urls)),
+    url(r'^api/auth/access-token/', auth_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url(r'^api/employee/new_employee/', viewsets.EmployeeViewset.as_view()),
+    url(r'^api/leave/new_application/', viewsets.LeaveViewset.as_view()),
+    url(r'^api/auth/refresh-token/', auth_views.TokenRefreshView.as_view(), name='token_refresh_view')
 ]
