@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from leave_manager import viewsets
 from rest_framework.routers import DefaultRouter
+from rest_framework_simplejwt import views as auth_views
 
 router = DefaultRouter()
 router.register(r'new_employee', viewsets.EmployeeViewset)
@@ -25,4 +26,6 @@ router.register(r'leave_application', viewsets.LeaveViewset)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(router.urls)),
+    url(r'^api/token/', auth_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url(r'^api/refresh/', auth_views.TokenRefreshView.as_view(), name='token_refresh_view')
 ]
