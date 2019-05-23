@@ -6,7 +6,7 @@ pip3 install -r requirements.txt
 
 # How to Run Application
 
-# How to run test cases using Coverage test library
+# Running test cases using coverage
 coverage run manage.py test <app_name> -v 2
 
 
