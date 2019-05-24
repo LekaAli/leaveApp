@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from django.forms import model_to_dict
 from rest_framework.permissions import IsAuthenticated
 from .serializers import EmployeeSerializer, LeaveSerializer
 from .models import Leave, Employee
@@ -21,19 +21,27 @@ class EmployeeViewset(APIView):
 				serializer = EmployeeSerializer(employee)
 				results = {'success': True, 'payload': serializer.data}
 			except Exception as ex:
+				ex = str(ex)
 				results.update({'success': False, 'reason': ex, 'payload': ex})
 		return Response(results)
 
-	def post(self, request, *args, **kwargs):
+	def post(self, request):
+		results = dict()
 		request_query_params = self.request.data
-		# if
-		return Response({})
+		try:
+			employee = Employee.objects.create(**request_query_params)
+			employee.save()
+			results.update({'success': True, 'payload': model_to_dict(employee)})
+		except Exception as ex:
+			ex = str(ex)
+			results.update({'success': False, 'reason': ex, 'payload': ex})
+
+		return Response(results)
 
 
 class LeaveViewset(APIView):
 
 	serializer_classes = (LeaveSerializer, )
-	# authentication_classes = (SessionAuthentication, BasicAuthentication)
 	permission_classes = (IsAuthenticated, )
 
 	def get(self, request):
@@ -41,13 +49,30 @@ class LeaveViewset(APIView):
 		results = {'success': False, 'payload': 'Employee Number is Required', 'reason': 'Employee Number is Required'}
 		if 'emp_number' in request_query_params:
 			try:
-				employee = Employee.objects.get(emp_number=request_query_params['emp_number'])
-				serializer = LeaveSerializer(employee.leave)
-				results = {'success': True, 'payload': serializer.data}
+				employee = Leave.objects.get(employee__emp_number=request_query_params['emp_number'])
+				results = {'success': True, 'payload': model_to_dict(employee)}
 			except Exception as ex:
+				ex = str(ex)
 				results.update({'success': False, 'reason': ex, 'payload': ex})
 		return Response(results)
 
 	def post(self, request, *args, **kwargs):
+		request_query_params = self.request.data
+		results = dict()
+		try:
+			emp_number = request_query_params['emp_number']
+			employee = Employee.objects.get(emp_number=emp_number)
+			leave_kwargs = {
+				'employee': employee,
+				'start_date': request_query_params.get('start_date'),
+				'end_date': request_query_params.get('end_date'),
+				'status': 0
+			}
+			leave = Leave.objects.create(**leave_kwargs)
+			leave.save()
+			results.update({'success': True, 'payload': model_to_dict(leave)})
+		except Exception as ex:
+			ex = str(ex)
+			results.update({'success': False, 'payload': ex, 'reason': ex})
 
-		return Response({})
+		return Response(results)
