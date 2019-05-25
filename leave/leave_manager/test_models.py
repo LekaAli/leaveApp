@@ -36,3 +36,6 @@ class LeaveManagerTestCase(TestCase):
 
 		self.assertTrue(self.leave.start_date < self.leave.end_date)
 
+	def test_days_of_leave_greater_than_1(self):
+		print(self.leave.start_date)
+		self.assertTrue(self.leave.days_of_leave > 1)
