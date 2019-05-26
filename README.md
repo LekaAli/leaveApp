@@ -42,7 +42,7 @@ Available services: <br/>
 3. /api/auth/refresh-token/ - accept post request <br/>
  - POST: If refresh token is valid, this service will generate a new access-token.<br/>
 # Running test cases using coverage
-coverage run manage.py test <app_name> -v 2
+coverage run manage.py test tests -v 2
 
 
 
