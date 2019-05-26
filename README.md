@@ -40,7 +40,7 @@ Available services: <br/>
   - GET: retrieve employee leave request. <br/>
   - POST: create/update employee leave request. <br/>
 3. /api/auth/refresh-token/ - accept post request <br/>
- - POST: If valid, generate a new access-token.<br/>
+ - POST: If refresh token is valid, this service will generate a new access-token.<br/>
 # Running test cases using coverage
 coverage run manage.py test <app_name> -v 2
 
