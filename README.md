@@ -24,7 +24,7 @@ python manage.py runserver
 # Creating access token for use to access the services
 Open browser or api testing application: http://127.0.0.1:8000/api/auth/access-token/ <br/>
 Prompted for username and password. <br/>
-When successfully created, an access-token and refresh-token will be created. <br/>
+When successfully validated, an access-token and a refresh-token will be created. <br/>
 Refresh token is used for access-token creation since access-token is only valid for 5 minutes while refresh-token is valid for 24 hours. <br/>
 
 # Accessing the web services
