@@ -29,16 +29,18 @@ Refresh token is used for access-token creation since access-token is only valid
 
 # Accessing the web services
 
-Open api testing application(i.e. Postman)
+Open api testing application(i.e. Postman)<br/>
 Type the following address in the request url section: http://127.0.0.1:8000/api <br/>
-Set request authorisation using the generated access-token
-available services: <br/>
+Set request authorisation using the generated access-token.<br/>
+Available services: <br/>
 1. /api/employee/ - accept both get and post request <br/>
   - GET: retrieve employee given the emp_number.<br/>
   - POST: create/update employee account.<br/>
 2. /api/leave/ - accept both get and post request <br/>
   - GET: retrieve employee leave request. <br/>
   - POST: create/update employee leave request. <br/>
+3. /api/auth/refresh-token/ - accept post request <br/>
+ - POST: If valid, generate a new access-token.<br/>
 # Running test cases using coverage
 coverage run manage.py test <app_name> -v 2
 
