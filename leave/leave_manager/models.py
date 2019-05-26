@@ -19,12 +19,11 @@ class Employee(models.Model):
 		return self.emp_number
 
 
-def daysOfLeave(is_valid_period):
-	if is_valid_period <= 0:
-		
+def daysOfLeave(leave_days):
+	if leave_days <= 0:
 		raise ValidationError('Leave time period is invalid')
 	else:
-		return is_valid_period
+		return leave_days
 
 
 class Leave(models.Model):
